@@ -28,7 +28,9 @@
         ></textarea>
     </div>
 
-    <Fab />
+    <Fab
+        icon="fa-save"
+    />
 
     <img 
         src="https://a.cdn-hotels.com/gdcs/production159/d204/01ae3fa0-c55c-11e8-9739-0242ac110006.jpg"
