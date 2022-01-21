@@ -17,6 +17,14 @@ export const updateEntry = ( state, entry ) => { //entry actualizada
 
 }
 
-export const addEntry = ( /*state*/ ) => {
+export const createEntry = ( state, entry ) => {
+
+    state.entries = [ entry, ...state.entries ]
+
+}
+
+export const deleteEntry = ( state, id ) => {
+
+    state.entries = state.entries.filter( entry => entry.id !== id )
 
 }
