@@ -20,6 +20,8 @@ describe('Vuex - Pruebas en el Journal Module', () => {
 
     test('en', () => {
         
+
+        
     })
 
     test('en', () => {
