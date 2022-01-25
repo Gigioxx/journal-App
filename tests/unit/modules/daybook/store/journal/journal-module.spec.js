@@ -76,4 +76,28 @@ describe('Vuex - Pruebas en el Journal Module', () => {
 
     })
 
+    //Getters
+
+    test('getters: getEntriesByTerm getEntryById', () => {
+
+        const store = createVuexStore( journalState )
+
+        const [ entry1, entry2 ] = journalState.entries
+
+        expect( store.getters['journal/getEntriesByTerm']('').length ).toBe(2)
+        expect( store.getters['journal/getEntriesByTerm']('es').length ).toBe(1)
+
+        expect( store.getters['journal/getEntriesByTerm']('es') ).toEqual([ entry1 ])
+        expect( store.getters['journal/getEntryById']('-MtyY5gkXcOA33Si47NG') ).toEqual( entry2 )
+
+    })
+
+    //actions
+
+    test('', () => {
+
+        
+
+    })
+
 })
