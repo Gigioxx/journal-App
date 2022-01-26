@@ -42,7 +42,7 @@ describe('Vuex - Pruebas en el Journal Module', () => {
         const store = createVuexStore( journalState )
 
         const updatedEntry = {
-            id: 'MtyDhSnxcjRMq9xNzBG',
+            id: '-MtyDhSnxcjRMq9xNzBG',
             date : 1642795283553,            
             text : 'Hola mundo desde pruebas'
         }
@@ -94,9 +94,63 @@ describe('Vuex - Pruebas en el Journal Module', () => {
 
     //actions
 
-    test('', () => {
+    test('actions: loadEntries', async() => {
 
-        
+        const store = createVuexStore({ isLoading: true, entries: [] })
+
+        await store.dispatch('journal/loadEntries')
+
+        expect( store.state.journal.entries.length ).toBe(2)
+
+    })
+
+    test('actions: updateEntry', async() => {
+
+        const store = createVuexStore( journalState )
+
+        const updatedEntry = {
+            id: '-MtyDhSnxcjRMq9xNzBG',
+            date : 1642795283553,            
+            text : 'Estoy aprendiendo vuejs',
+            otroCampo: true,
+            otroMas: { a: 1 }
+        }
+
+        await store.dispatch('journal/updateEntry', updatedEntry)
+
+        expect( store.state.journal.entries.length ).toBe(2)
+        expect(
+            store.state.journal.entries.find( e => e.id === updatedEntry.id )
+        ).toEqual({
+            id: '-MtyDhSnxcjRMq9xNzBG',
+            date : 1642795283553,            
+            text : 'Estoy aprendiendo vuejs',
+        })
+
+    })
+
+    test('actions: createEntry deleteEntry', async() => {
+
+        const store = createVuexStore( journalState )
+
+        const newEntry = { 
+            date: 1516966116867,
+            text: 'Nueva entrada desde las pruebas'
+        }
+
+        const id = await store.dispatch('journal/createEntry', newEntry )
+
+        expect( typeof id ).toBe('string')
+
+        expect(
+            store.state.journal.entries.find( e => e.id === id )
+        ).toBeTruthy()
+
+        await store.dispatch('journal/deleteEntry', id )
+
+        expect(
+            store.state.journal.entries.find( e => e.id === id )
+        ).toBeFalsy()
 
     })
 

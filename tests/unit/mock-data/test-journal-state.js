@@ -3,7 +3,7 @@ export const journalState = {
     isLoading: false,
     entries: [
         {
-            id: 'MtyDhSnxcjRMq9xNzBG',
+            id: '-MtyDhSnxcjRMq9xNzBG',
             date : 1642795283553,            
             text : "Estoy aprendiendo vuejs"
         },
