@@ -12,7 +12,7 @@ describe('Pruebas en el uploadImage', () => {
 
     test('Debe de cargar un archivo y retornar el URL', async( done ) => {
 
-        const { data } = await axios.get('https://res.cloudinary.com/dqrdhv5kw/image/upload/v1642800652/pvwlpylioth6v99gmnh6.jpg', {
+        const { data } = await axios.get('https://res.cloudinary.com/dqrdhv5kw/image/upload/v1633040012/jmu7sjvxyjfbmjjk7cpi.png', {
             responseType: 'arraybuffer'
         })
 
@@ -24,9 +24,7 @@ describe('Pruebas en el uploadImage', () => {
 
         //Tomar el ID
         const segments = url.split('/')
-
         const imageId = segments[ segments.length - 1 ].replace('.jpg', '')
-        
         cloudinary.v2.api.delete_resources( imageId, {}, () => {
             done()
         })
