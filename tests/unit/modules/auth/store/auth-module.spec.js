@@ -59,6 +59,7 @@ describe('Vuex: Pruebas en el auth-module', () => {
         store.commit('auth/logout')
 
         const { status, user, idToken, refreshToken } = store.state.auth
+        
         expect(status).toBe( 'not-authenticated' )
         expect(user).toBeFalsy()
         expect(idToken).toBeFalsy()
@@ -82,6 +83,30 @@ describe('Vuex: Pruebas en el auth-module', () => {
         expect( store.getters['auth/currentState'] ).toBe( 'authenticated' )
         expect( store.getters['auth/username'] ).toBe( 'Guillermo' )
         
+    })
+
+    // Actions
+    test('Actions: createUser - Error usuario ya existe', async() => {
+
+        const store = createVuexStore({
+            status: 'not-authenticated', // 'authenticated', 'not-authenticated', 'authenticating'
+            user: null,
+            idToken: null,
+            refreshToken: null
+        })
+
+        const newUser = { name: 'Test User', email: 'test@test.com', password: '123456' }
+
+        const resp = await store.dispatch('auth/createUser', newUser)
+        expect( resp ).toEqual({ ok: false, message: 'EMAIL_EXISTS' })
+
+        const { status, user, idToken, refreshToken } = store.state.auth
+
+        expect(status).toBe( 'not-authenticated' )
+        expect(user).toBeFalsy()
+        expect(idToken).toBeFalsy()
+        expect(refreshToken).toBeFalsy()
+
     })
 
 })
