@@ -3,7 +3,10 @@ import useAuth from '@/modules/auth/composables/useAuth'
 const mockStore = {
     dispatch: jest.fn(),
     commit: jest.fn(),
-    // Getters
+    getters: {
+        'auth/currentState': 'authenticated',
+        'auth/username': 'Guillermo'
+    }
 }
 
 jest.mock('vuex', () => ({
@@ -101,7 +104,15 @@ describe('Pruebas en useAuth', () => {
         expect( mockStore.commit ).toHaveBeenCalledWith('auth/logout')
         expect( mockStore.commit ).toHaveBeenCalledWith('journal/clearEntries')
 
+    })
 
+    test('Computed: authState, username', () => {
+
+        const { authStatus, username } = useAuth()
+        
+        expect( authStatus.value ).toBe('authenticated')
+        expect( username.value ).toBe('Guillermo')
+        
     })
 
 })
