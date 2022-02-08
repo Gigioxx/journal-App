@@ -51,5 +51,26 @@ describe('Pruebas en el Login Component', () => {
         expect( Swal.fire ).toHaveBeenCalledWith( 'Error', 'Credenciales incorrectas', 'error' )
 
     })
+    
+    test('Debe de redirigir a la ruta no-entry cuando las credenciales sean correctas', async() => {
+
+        store.dispatch.mockReturnValueOnce({ ok: true })
+
+        const wrapper = shallowMount( Login, {
+            global: {
+                plugins: [ store ]
+            }
+        })
+
+        const [ txtEmail, txtPassword ] = wrapper.findAll('input')
+        await txtEmail.setValue('guillermo@gmail.com')
+        await txtPassword.setValue('123456')
+
+        await wrapper.find('form').trigger('submit')
+        
+        expect( store.dispatch ).toHaveBeenCalledWith('auth/signInUser', { 'email': 'guillermo@gmail.com', 'password': '123456' })
+        expect( wrapper.router.push ).toHaveBeenCalledWith({ 'name': 'no-entry' })
+
+    })
 
 })
